@@ -12,7 +12,13 @@
 		AD4C7BDA21D7971400592137 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD4C7BD821D7971400592137 /* Main.storyboard */; };
 		AD4C7BDC21D7971500592137 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD4C7BDB21D7971500592137 /* Assets.xcassets */; };
 		AD4C7BDF21D7971500592137 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD4C7BDD21D7971500592137 /* LaunchScreen.storyboard */; };
-		AD4C7BEA21D7971500592137 /* CoreMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4C7BE921D7971500592137 /* CoreMockTests.swift */; };
+		AD4C7C2921D7A4DE00592137 /* PresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4C7C2821D7A4DE00592137 /* PresenterTests.swift */; };
+		AD4C7C2F21D7A5DF00592137 /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4C7C2A21D7A5DE00592137 /* BaseTestCase.swift */; };
+		AD4C7C3021D7A5DF00592137 /* XCTestCaseExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4C7C2B21D7A5DE00592137 /* XCTestCaseExtensions.swift */; };
+		AD4C7C3121D7A5DF00592137 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4C7C2C21D7A5DE00592137 /* State.swift */; };
+		AD4C7C3221D7A5DF00592137 /* Equivalent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4C7C2D21D7A5DE00592137 /* Equivalent.swift */; };
+		AD4C7C3321D7A5DF00592137 /* CallHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4C7C2E21D7A5DE00592137 /* CallHandler.swift */; };
+		AD4C7C3621D7A64500592137 /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4C7C3521D7A64500592137 /* Mock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,6 +31,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		AD4C7C1321D7976600592137 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		AD4C7BD121D7971400592137 /* CoreMock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreMock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD4C7BD421D7971400592137 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -34,8 +53,15 @@
 		AD4C7BDE21D7971500592137 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AD4C7BE021D7971500592137 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD4C7BE521D7971500592137 /* CoreMockTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreMockTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AD4C7BE921D7971500592137 /* CoreMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMockTests.swift; sourceTree = "<group>"; };
 		AD4C7BEB21D7971500592137 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AD4C7C2421D7982400592137 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		AD4C7C2821D7A4DE00592137 /* PresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterTests.swift; sourceTree = "<group>"; };
+		AD4C7C2A21D7A5DE00592137 /* BaseTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTestCase.swift; sourceTree = "<group>"; };
+		AD4C7C2B21D7A5DE00592137 /* XCTestCaseExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestCaseExtensions.swift; sourceTree = "<group>"; };
+		AD4C7C2C21D7A5DE00592137 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
+		AD4C7C2D21D7A5DE00592137 /* Equivalent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equivalent.swift; sourceTree = "<group>"; };
+		AD4C7C2E21D7A5DE00592137 /* CallHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallHandler.swift; sourceTree = "<group>"; };
+		AD4C7C3521D7A64500592137 /* Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +88,7 @@
 				AD4C7BD321D7971400592137 /* CoreMock */,
 				AD4C7BE821D7971500592137 /* CoreMockTests */,
 				AD4C7BD221D7971400592137 /* Products */,
+				AD4C7C2321D7982400592137 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -90,10 +117,32 @@
 		AD4C7BE821D7971500592137 /* CoreMockTests */ = {
 			isa = PBXGroup;
 			children = (
-				AD4C7BE921D7971500592137 /* CoreMockTests.swift */,
+				AD4C7C3421D7A5ED00592137 /* CoreMock */,
+				AD4C7C2821D7A4DE00592137 /* PresenterTests.swift */,
 				AD4C7BEB21D7971500592137 /* Info.plist */,
 			);
 			path = CoreMockTests;
+			sourceTree = "<group>";
+		};
+		AD4C7C2321D7982400592137 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AD4C7C2421D7982400592137 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AD4C7C3421D7A5ED00592137 /* CoreMock */ = {
+			isa = PBXGroup;
+			children = (
+				AD4C7C3521D7A64500592137 /* Mock.swift */,
+				AD4C7C2A21D7A5DE00592137 /* BaseTestCase.swift */,
+				AD4C7C2E21D7A5DE00592137 /* CallHandler.swift */,
+				AD4C7C2D21D7A5DE00592137 /* Equivalent.swift */,
+				AD4C7C2C21D7A5DE00592137 /* State.swift */,
+				AD4C7C2B21D7A5DE00592137 /* XCTestCaseExtensions.swift */,
+			);
+			path = CoreMock;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -106,6 +155,7 @@
 				AD4C7BCD21D7971400592137 /* Sources */,
 				AD4C7BCE21D7971400592137 /* Frameworks */,
 				AD4C7BCF21D7971400592137 /* Resources */,
+				AD4C7C1321D7976600592137 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -206,7 +256,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD4C7BEA21D7971500592137 /* CoreMockTests.swift in Sources */,
+				AD4C7C3021D7A5DF00592137 /* XCTestCaseExtensions.swift in Sources */,
+				AD4C7C3221D7A5DF00592137 /* Equivalent.swift in Sources */,
+				AD4C7C2F21D7A5DF00592137 /* BaseTestCase.swift in Sources */,
+				AD4C7C3621D7A64500592137 /* Mock.swift in Sources */,
+				AD4C7C2921D7A4DE00592137 /* PresenterTests.swift in Sources */,
+				AD4C7C3321D7A5DF00592137 /* CallHandler.swift in Sources */,
+				AD4C7C3121D7A5DF00592137 /* State.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,6 +415,7 @@
 		AD4C7BEF21D7971500592137 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CMMP26MFB2;
@@ -377,6 +434,7 @@
 		AD4C7BF021D7971500592137 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CMMP26MFB2;
