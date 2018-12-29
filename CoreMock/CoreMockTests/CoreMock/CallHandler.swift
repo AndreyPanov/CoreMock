@@ -4,10 +4,7 @@ class CallHandler {
   
   private(set) var state = State.none
   private var invoked = Invoke.none
-  private var testCase: BaseTestCase
-  
-  private var original: [Equivalent] = []
-  private var verified: [Equivalent] = []
+  private let testCase: BaseTestCase
   
   private var callHistory: [Function] = []
   private var callMockHistory: [Function] = []
@@ -24,24 +21,22 @@ class CallHandler {
   @available(*, deprecated, message: "Use new method instead")
   @discardableResult func accept(_ returnValue: Any?, ofFunction function: String, atFile file: String,
               inLine line: Int, withArgs args: Any?...) -> Any? {
-    accept(withFunction: function, inFile: file, atLine: line)
+    _ = accept(withFunction: function, inFile: file, atLine: line)
     return nil
   }
   
-  @discardableResult
   func accept(withFunction function: String, inFile file: String, atLine line: Int) -> Self {
-    guard invoked != .never else { return self }
-    
+   let f = Function(name: function, file: file, line: line)
     switch state {
     case .none:
-      callHistory.append(function)
+      callHistory.append(f)
     case .verify:
       switch invoked {
       case .never: ()
       case .once, .none:
-        callMockHistory.append(function)
+        callMockHistory.append(f)
       case .times(let number):
-        (0..<number).forEach { _ in callMockHistory.append(function) }
+        (0..<number).forEach { _ in callMockHistory.append(f) }
       }
     }
     trackTestCase(function: function)
@@ -50,73 +45,71 @@ class CallHandler {
   
   func join(arg: Equivalent) -> Self {
     if state == .none {
-      original.append(arg)
-      print("I appended \(arg) to state .none for the method \(callHistory.last!)")
+      callHistory.last?.args.append(arg)
     } else {
-      switch invoked {
-      case .never: ()
-      case .once, .none:
-        verified.append(arg)
-      case .times(let number):
-        (0..<number).forEach { _ in verified.append(arg) }
+      if invoked != .never {
+        callMockHistory.last?.args.append(arg)
       }
-      print("I appended \(arg) to state .verified for the method \(callMockHistory.last!)")
     }
-    
     return self
   }
   
-  func check(withFunction function: String, inFile file: String, atLine line: Int) {
+  func check(_ function: String) {
     guard state == .verify else { return }
-    guard original.count == verified.count else {
-      doFail(
-        "Expected to verify \(original.count) arguments. Instead got \(verified.count)",
-        inFile: file,
-        atLine: line
-      )
-      return
-    }
     
-    for (real, mock) in zip(original, verified) {
-      if real != mock {
-        doFail("Arguments are not equal for method \(function)", inFile: file, atLine: line)
-      }
-    }
-    state = .none
-    verifyCall(ofFunction: function, inFile: file, atLine: line)
-  }
-  
-  private func verifyCall(ofFunction function: String, inFile file: String, atLine line: Int) {
-    let numberOfCallsInReal = callHistory.filter { $0 == function }.count
-    let numberOfCallsInMock = callMockHistory.filter { $0 == function }.count
-    
-    guard numberOfCallsInReal == numberOfCallsInMock else {
-      doFail(
-        "Expected to call \(numberOfCallsInReal) times but got \(numberOfCallsInMock) instead",
-        inFile: file,
-        atLine: line
-      )
-      return
-    }
+    let originalFunctions = callHistory.filter { $0.name == function }
+    let verifiedFunctions = callMockHistory.filter { $0.name == function }
     
     switch invoked {
-    case .once:
-      if numberOfCallsInReal != 1 {
-        doFail("Expected to call \(function) once but call \(numberOfCallsInReal) instead", inFile: file, atLine: line)
-      }
-    case .times(let number):
-      if numberOfCallsInReal != number {
+    case .never:
+      if originalFunctions.isEmpty == false {
         doFail(
-          "Expected to call \(function) \(number) times but call \(numberOfCallsInReal) instead",
-          inFile: file,
-          atLine: line
+          "Expected don't call \(function) but call \(originalFunctions.count) instead",
+          inFile: originalFunctions.first!.file,
+          atLine: originalFunctions.first!.line
         )
       }
-    case .never:
-      if numberOfCallsInReal != 0 {
-        doFail("Expected don't call \(function) but call \(numberOfCallsInReal) instead", inFile: file, atLine: line)
+    case .once:
+      if (originalFunctions.count != verifiedFunctions.count) || (originalFunctions.count != 1) {
+        doFail(
+          "Expected to call \(function) once but call \(originalFunctions.count) instead",
+          inFile: originalFunctions.first!.file,
+          atLine: originalFunctions.first!.line
+        )
       }
-    case .none: ()
+    case .times(let number):
+      if (originalFunctions.count != verifiedFunctions.count) || (originalFunctions.count != number) {
+        doFail(
+          "Expected don't call \(function) \(number) times but call \(originalFunctions.count) instead",
+          inFile: originalFunctions.first!.file,
+          atLine: originalFunctions.first!.line
+        )
+      }
+    case .none:
+      if originalFunctions.isEmpty {
+        doFail(
+          "Expected to call \(function) but don't call instead",
+          inFile: originalFunctions.first!.file,
+          atLine: originalFunctions.first!.line
+        )
+      }
+    }
+    
+    for (real, mock) in zip(originalFunctions, verifiedFunctions) {
+      verifyArgs(for: real, and: mock)
+    }
+    state = .none
+  }
+  
+  private func verifyArgs(for originalFunction: Function, and verifiedFunction: Function) {
+    for (real, mock) in zip(originalFunction.args, verifiedFunction.args) {
+      if real != mock {
+        doFail(
+          "Arguments are not equal for method \(originalFunction.name)",
+          inFile: originalFunction.file,
+          atLine: originalFunction.line
+        )
+      }
     }
   }
   

@@ -1,11 +1,11 @@
 import XCTest
 
-typealias Function = String
+typealias FunctionName = String
 
 class BaseTestCase: XCTestCase {
   
-  var callHistory: [Function]!
-  var callMockHistory: [Function]!
+  var callHistory: [FunctionName]!
+  var callMockHistory: [FunctionName]!
   
   override open func setUp() {
     super.setUp()
@@ -24,7 +24,7 @@ class BaseTestCase: XCTestCase {
   //swiftlint:disable identifier_name
   func AssertMockCallHistoryTrue(file: StaticString = #file, line: UInt = #line) {
     guard callHistory.count == callMockHistory.count else {
-      XCTFail("\n\nExpected to verify \(callHistory.count) method calls. Instead got \(callMockHistory.count)",
+      XCTFail("Expected to verify \(callHistory.count) method calls. Instead got \(callMockHistory.count)",
         file: file, line: line)
       print("Real call history: \(String(describing: callHistory))")
       print("Expected call history: \(String(describing: callMockHistory))")
@@ -41,9 +41,4 @@ class BaseTestCase: XCTestCase {
     XCTAssertTrue(true)
   }
   //swiftlint:enable identifier_name
-  
-  func clearHistory() {
-    callHistory = []
-    callMockHistory = []
-  }
 }
