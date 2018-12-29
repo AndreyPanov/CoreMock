@@ -26,7 +26,10 @@ class PresenterTests: BaseTestCase {
   func testOnViewDidLoad() {
     presenter.onViewDidLoad()
     
-    verify(view).set(title: "Text")
+    verify(view).set(title: "Text", subtitle: "Cat")
+    verify(view).set(title: "Text", subtitle: "Cat")
+    verify(view).set(boardVisible: true)
+    verify(view).set(title: "Text1", subtitle: "Dog")
     AssertMockCallHistoryTrue()
   }
   
@@ -35,7 +38,7 @@ class PresenterTests: BaseTestCase {
     
     verify(repository).getItems(onSuccess: {_ in })
     verify(view).set(boardVisible: true)
-    verify(view).set(title: "Updated")
+    verify(view).set(title: "Updated", subtitle: "Up")
     AssertMockCallHistoryTrue()
   }
 }
@@ -53,18 +56,19 @@ class ViewMock: View, Mock {
     return self
   }
   
-  func set(title: String) {
+  func set(title: String, subtitle: String) {
     callHandler
       .accept(withFunction: #function, inFile: #file, atLine: #line)
       .join(arg: .string(title))
-      .check(withFunction: #function, inFile: #file, atLine: #line)
+      .join(arg: .string(subtitle))
+      .check(#function)
   }
   
   func set(boardVisible: Bool) {
     callHandler
       .accept(withFunction: #function, inFile: #file, atLine: #line)
       .join(arg: .bool(boardVisible))
-      .check(withFunction: #function, inFile: #file, atLine: #line)
+      .check(#function)
   }
 }
 
@@ -82,7 +86,7 @@ class RepositoryMock: Repository, Mock {
   func getItems(onSuccess: @escaping ([String]) -> Void) {
     callHandler
       .accept(withFunction: #function, inFile: #file, atLine: #line)
-      .check(withFunction: #function, inFile: #file, atLine: #line)
+      .check(#function)
     onSuccess(["Cat", "Dog"])
   }
 }

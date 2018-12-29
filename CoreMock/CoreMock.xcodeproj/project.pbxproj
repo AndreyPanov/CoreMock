@@ -19,6 +19,7 @@
 		AD4C7C3221D7A5DF00592137 /* Equivalent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4C7C2D21D7A5DE00592137 /* Equivalent.swift */; };
 		AD4C7C3321D7A5DF00592137 /* CallHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4C7C2E21D7A5DE00592137 /* CallHandler.swift */; };
 		AD4C7C3621D7A64500592137 /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4C7C3521D7A64500592137 /* Mock.swift */; };
+		ADFDB7DD21D7FE4D00CAA584 /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFDB7DC21D7FE4D00CAA584 /* Function.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		AD4C7C2D21D7A5DE00592137 /* Equivalent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equivalent.swift; sourceTree = "<group>"; };
 		AD4C7C2E21D7A5DE00592137 /* CallHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallHandler.swift; sourceTree = "<group>"; };
 		AD4C7C3521D7A64500592137 /* Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mock.swift; sourceTree = "<group>"; };
+		ADFDB7DC21D7FE4D00CAA584 /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 				AD4C7C3521D7A64500592137 /* Mock.swift */,
 				AD4C7C2A21D7A5DE00592137 /* BaseTestCase.swift */,
 				AD4C7C2E21D7A5DE00592137 /* CallHandler.swift */,
+				ADFDB7DC21D7FE4D00CAA584 /* Function.swift */,
 				AD4C7C2D21D7A5DE00592137 /* Equivalent.swift */,
 				AD4C7C2C21D7A5DE00592137 /* State.swift */,
 				AD4C7C2B21D7A5DE00592137 /* XCTestCaseExtensions.swift */,
@@ -263,6 +266,7 @@
 				AD4C7C2921D7A4DE00592137 /* PresenterTests.swift in Sources */,
 				AD4C7C3321D7A5DF00592137 /* CallHandler.swift in Sources */,
 				AD4C7C3121D7A5DF00592137 /* State.swift in Sources */,
+				ADFDB7DD21D7FE4D00CAA584 /* Function.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

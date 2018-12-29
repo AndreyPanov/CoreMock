@@ -1,7 +1,7 @@
 import UIKit
 
 protocol View: class {
-  func set(title: String)
+  func set(title: String, subtitle: String)
   func set(boardVisible: Bool)
 }
 
@@ -20,20 +20,23 @@ class Presenter {
   }
  
   func onViewDidLoad() {
-    view.set(title: "Text")
+    view.set(title: "Text", subtitle: "Cat")
+    view.set(title: "Text", subtitle: "Cat")
+    view.set(boardVisible: true)
+    view.set(title: "Text1", subtitle: "Dog")
   }
   
   func onUpdateTapped() {
     repository.getItems() { items in
       self.view.set(boardVisible: true)
-      self.view.set(title: "Updated")
+      self.view.set(title: "Updated", subtitle: "Up")
     }
   }
 }
 
 class ViewController: UIViewController, View {
 
-  func set(title: String) {}
+  func set(title: String, subtitle: String) {}
   func set(boardVisible: Bool) {}
 }
 
