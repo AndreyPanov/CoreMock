@@ -7,6 +7,7 @@ protocol View: class {
 
 protocol Repository: class {
   func getItems(onSuccess: @escaping ([String]) -> Void)
+  func getItems(page: Int, onSuccess: @escaping ([String]) -> Void)
 }
 
 class Presenter {
@@ -32,6 +33,13 @@ class Presenter {
       self.view.set(title: "Updated", subtitle: "Up")
     }
   }
+  
+  func onPickerTapped() {
+    repository.getItems(page: 2) { items in
+      self.view.set(boardVisible: true)
+      self.view.set(title: "Updated", subtitle: "Up")
+    }
+  }
 }
 
 class ViewController: UIViewController, View {
@@ -42,4 +50,5 @@ class ViewController: UIViewController, View {
 
 class RepositoryImp: Repository {
   func getItems(onSuccess: @escaping ([String]) -> Void) {}
+  func getItems(page: Int, onSuccess: @escaping ([String]) -> Void) {}
 }

@@ -41,8 +41,13 @@ class PresenterTests: BaseTestCase {
     verify(view).set(title: "Updated", subtitle: "Up")
     AssertMockCallHistoryTrue()
   }
+  
+  func testOnPickerTapped() {
+    presenter.onPickerTapped()
+    
+    verify(repository, .once).getItems(page: 2, onSuccess: {_ in })
+  }
 }
-
 
 class ViewMock: View, Mock {
   
@@ -59,15 +64,15 @@ class ViewMock: View, Mock {
   func set(title: String, subtitle: String) {
     callHandler
       .accept(withFunction: #function, inFile: #file, atLine: #line)
-      .join(arg: .string(title))
-      .join(arg: .string(subtitle))
+      .join(arg: title)
+      .join(arg: subtitle)
       .check(#function)
   }
   
   func set(boardVisible: Bool) {
     callHandler
       .accept(withFunction: #function, inFile: #file, atLine: #line)
-      .join(arg: .bool(boardVisible))
+      .join(arg: boardVisible)
       .check(#function)
   }
 }
@@ -86,6 +91,14 @@ class RepositoryMock: Repository, Mock {
   func getItems(onSuccess: @escaping ([String]) -> Void) {
     callHandler
       .accept(withFunction: #function, inFile: #file, atLine: #line)
+      .check(#function)
+    onSuccess(["Cat", "Dog"])
+  }
+  
+  func getItems(page: Int, onSuccess: @escaping ([String]) -> Void) {
+    callHandler
+      .accept(withFunction: #function, inFile: #file, atLine: #line)
+      .join(arg: page)
       .check(#function)
     onSuccess(["Cat", "Dog"])
   }
