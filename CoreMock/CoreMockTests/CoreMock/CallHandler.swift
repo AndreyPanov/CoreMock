@@ -39,14 +39,7 @@ class CallHandler {
     self.line = line
   }
   
-  @available(*, deprecated, message: "Use the new method instead. This method works only for function order verification!")
-  @discardableResult func accept(_ returnValue: Any?, ofFunction function: String, atFile file: String,
-              inLine line: Int, withArgs args: Any?...) -> Any? {
-    _ = accept(withFunction: function, inFile: file, atLine: line)
-    return nil
-  }
-  
-  func accept(withFunction function: String, inFile file: String, atLine line: Int) -> Self {
+  func accept(_ function: String = #function) -> Self {
     let f = Function(name: function)
     switch state {
     case .none:
@@ -75,7 +68,7 @@ class CallHandler {
     return self
   }
   
-  func check(_ function: String) {
+  func check(_ function: String = #function) {
     guard state == .verify else { return }
     
     let originalFunctions = callHistory.filter { $0.name == function }

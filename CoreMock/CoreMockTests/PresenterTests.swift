@@ -45,7 +45,7 @@ class PresenterTests: BaseTestCase {
   func testOnPickerTapped() {
     presenter.onPickerTapped()
     
-    verify(repository, .once).getItems(page: 2, onSuccess: {_ in })
+    verify(repository, .times(1)).getItems(page: 2, onSuccess: {_ in })
   }
 }
 
@@ -63,17 +63,17 @@ class ViewMock: View, Mock {
   
   func set(title: String, subtitle: String) {
     callHandler
-      .accept(withFunction: #function, inFile: #file, atLine: #line)
+      .accept()
       .join(arg: title)
       .join(arg: subtitle)
-      .check(#function)
+      .check()
   }
   
   func set(boardVisible: Bool) {
     callHandler
-      .accept(withFunction: #function, inFile: #file, atLine: #line)
+      .accept()
       .join(arg: boardVisible)
-      .check(#function)
+      .check()
   }
 }
 
@@ -90,16 +90,16 @@ class RepositoryMock: Repository, Mock {
   
   func getItems(onSuccess: @escaping ([String]) -> Void) {
     callHandler
-      .accept(withFunction: #function, inFile: #file, atLine: #line)
-      .check(#function)
+      .accept()
+      .check()
     onSuccess(["Cat", "Dog"])
   }
   
   func getItems(page: Int, onSuccess: @escaping ([String]) -> Void) {
     callHandler
-      .accept(withFunction: #function, inFile: #file, atLine: #line)
+      .accept()
       .join(arg: page)
-      .check(#function)
+      .check()
     onSuccess(["Cat", "Dog"])
   }
 }
