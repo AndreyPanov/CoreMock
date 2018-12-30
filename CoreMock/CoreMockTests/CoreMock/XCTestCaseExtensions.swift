@@ -21,8 +21,8 @@ extension XCTestCase {
       verify(view, .times(2)).set(boardVisible: true)
   */
   
-  func verify<T: Mock>(_ mock: T, _ invoked: Invoke = .none) -> T.InstanceType {
-    return mock.verify(invoked: invoked)
+  func verify<T: Mock>(_ mock: T, _ invoked: Invoke = .none, inFile file: String = #file, atLine line: Int = #line) -> T.InstanceType {
+    return mock.verify(invoked: invoked, inFile: file, atLine: line)
   }
   /// When using 'verify' to assert that the given method is not invoked, we can pass 0
   /// But in order to increase readability, instead of literal 0, we can use 'never' property.
