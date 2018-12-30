@@ -2,50 +2,33 @@ import XCTest
 
 extension XCTestCase {
   
-  /// Checks if the given method is invoked with the given times. 
-  /// In most cases, expectation is only once, therefore default is set to 1
-  ///
-  ///     verify(presenter.loginWasCalled)    // Default 1
-  ///     verify(presenter.registrationWasCalled, times: 5)
-  ///
-  /// - parameters:
-  ///   - method: Method invoke count
-  ///   - times: The expectation count, as default it is 1
-  
-  func verify(_ method: Int, times: Int = 1, file: StaticString = #file, line: UInt = #line) {
-    XCTAssertTrue(
-      method == times,
-      "Given method is not invoked \(times), but invoked \(method) times.",
-      file: file,
-      line: line
-    )
-  }
-  
   /// Checks if the given method is invoked with the given mode.
-  /// In most cases, expectation is only once, therefore default is set to Once
-  ///
-  ///     verify(presenter).login()             // Times 1
-  ///     verify(presenter, Times(2)).login()   // Times 2
-  ///     verify(presenter, Never()).login()    // Times 0
-  ///
-  /// - parameters:
-  ///   - method: Method invoke count
-  ///   - times: The expectation count, as default it is 1
+  /*
+   All verify calls also verify the arguments of the method if we used `join()` function in mock.
+   
+   Case 1. We want to verify order of the calls.
+   
+      verify(view).set(title: "Text", subtitle: "Cat")
+      verify(view).set(title: "Text", subtitle: "Cat")
+      verify(view).set(boardVisible: true)
+      verify(view).set(title: "Text1", subtitle: "Dog")
+      AssertMockCallHistoryTrue()
+   
+   Case 2. We want to verify that methods were called a number of times
+   
+      verify(view, .never).set(title: "Text", subtitle: "Cat")
+      verify(view, .once).set(title: "Text")
+      verify(view, .times(2)).set(boardVisible: true)
+  */
   
   func verify<T: Mock>(_ mock: T, _ invoked: Invoke = .none) -> T.InstanceType {
-    //добавить
-    
     return mock.verify(invoked: invoked)
   }
   /// When using 'verify' to assert that the given method is not invoked, we can pass 0
   /// But in order to increase readability, instead of literal 0, we can use 'never' property.
   ///
-  ///     verify(loginWasCalled, times:never)
+  ///     verify(loginWasCalled, .never)
   
-  var never: Int {
-    return 0
-  }
-
   func wait(for timeInterval: TimeInterval) {
     let loopUntil = Date(timeIntervalSinceNow: timeInterval)
 

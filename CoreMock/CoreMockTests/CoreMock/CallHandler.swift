@@ -1,5 +1,20 @@
 import XCTest
 
+/**
+ Call this method first to track the function call
+ 
+  func accept(withFunction function: String, inFile file: String, atLine line: Int) -> Self
+ 
+ Append this method for args verificaton. You can append as many as arguments the function has.
+ Don't forget to add new type in Equivalent enum
+ 
+  func join(arg: Equivalent) -> Self
+ 
+ This function needs to be appended at the end. Always. Otherwise, we can't start function number of calls.
+ 
+  func check(_ function: String)
+*/
+
 class CallHandler {
   
   private(set) var state = State.none
@@ -15,10 +30,10 @@ class CallHandler {
   
   func verify(invoked: Invoke) {
     self.invoked = invoked
-    state = .verify
+    self.state = .verify
   }
   
-  @available(*, deprecated, message: "Use new method instead")
+  @available(*, deprecated, message: "Use the new method instead. This method works only for function order verification!")
   @discardableResult func accept(_ returnValue: Any?, ofFunction function: String, atFile file: String,
               inLine line: Int, withArgs args: Any?...) -> Any? {
     _ = accept(withFunction: function, inFile: file, atLine: line)
@@ -26,7 +41,7 @@ class CallHandler {
   }
   
   func accept(withFunction function: String, inFile file: String, atLine line: Int) -> Self {
-   let f = Function(name: function, file: file, line: line)
+    let f = Function(name: function, file: file, line: line)
     switch state {
     case .none:
       callHistory.append(f)
@@ -39,7 +54,7 @@ class CallHandler {
         (0..<number).forEach { _ in callMockHistory.append(f) }
       }
     }
-    trackTestCase(function: function)
+    trackTestCase(for: function)
     return self
   }
   
@@ -113,7 +128,7 @@ class CallHandler {
     }
   }
   
-  private func trackTestCase(function: String) {
+  private func trackTestCase(for function: String) {
     if state == .verify {
       testCase.callMockHistory.append(function)
     } else {
