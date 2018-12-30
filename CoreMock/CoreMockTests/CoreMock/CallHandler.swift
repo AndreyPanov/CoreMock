@@ -118,7 +118,7 @@ class CallHandler {
   
   private func verifyArgs(for originalFunction: Function, and verifiedFunction: Function) {
     for (real, mock) in zip(originalFunction.args, verifiedFunction.args) {
-      if real != mock {
+      if !real.isEqualTo(mock) {
         doFail(
           "Arguments are not equal for method \(originalFunction.name)",
           inFile: originalFunction.file,

@@ -13,7 +13,12 @@ class Function: Equatable {
 }
 
 func == (l: Function, r: Function) -> Bool {
-  return (l.name == r.name) && (l.args == r.args)
+  for (lArgs, rArgs) in zip(l.args, r.args) {
+    if !lArgs.isEqualTo(rArgs) {
+      return false
+    }
+  }
+  return l.name == r.name
 }
 
 extension Function: CustomStringConvertible {
