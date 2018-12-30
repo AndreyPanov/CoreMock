@@ -45,7 +45,7 @@ class PresenterTests: BaseTestCase {
   func testOnPickerTapped() {
     presenter.onPickerTapped()
     
-    verify(repository, .times(1)).getItems(page: 2, onSuccess: {_ in })
+    verify(repository, .once).getItems(page: 2, onSuccess: {_ in })
   }
 }
 

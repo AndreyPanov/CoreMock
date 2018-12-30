@@ -85,7 +85,7 @@ class CallHandler {
       }
     case .times(let number):
       if (originalFunctions.count != verifiedFunctions.count) || (originalFunctions.count != number) {
-        doFail("Expected don't call \(function) \(number) times but call \(originalFunctions.count) instead")
+        doFail("Expected to call \(function) \(number) times but call \(originalFunctions.count) instead")
       }
     case .none:
       if originalFunctions.isEmpty {
