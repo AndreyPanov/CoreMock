@@ -29,6 +29,7 @@ class CallHandler {
   
   init(withTestCase testCase: BaseTestCase) {
     self.testCase = testCase
+    testCase.add(self)
   }
   
   func verify(invoked: Invoke, inFile file: String, atLine line: Int) {
@@ -57,7 +58,7 @@ class CallHandler {
     return self
   }
   
-  func join(arg: Equivalent) -> Self {
+  func join(arg: Argument) -> Self {
     if state == .none {
       callHistory.last?.args.append(arg)
     } else {
@@ -101,8 +102,18 @@ class CallHandler {
   
   private func verifyArgs(for originalFunction: Function, and verifiedFunction: Function) {
     for (real, mock) in zip(originalFunction.args, verifiedFunction.args) {
-      if !real.isEqualTo(mock) {
-        doFail("Arguments are not equal for method \(originalFunction.name)")
+      switch (real, mock) {
+      case (.value(let value1), .value(let value2)):
+        if !value1.isEqualTo(value2) {
+          doFail("Arguments are not equal for method \(originalFunction.name)")
+        }
+      case (.values(let array1), .values(let array2)):
+        for (value1, value2) in zip(array1, array2) {
+          if !value1.isEqualTo(value2) {
+            doFail("Arguments are not equal for method \(originalFunction.name)")
+          }
+        }
+      default: ()
       }
     }
   }
@@ -117,5 +128,10 @@ class CallHandler {
   
   private func doFail(_ message: String) {
     testCase.recordFailure(withDescription: message, inFile: file, atLine: line, expected: true)
+  }
+  
+  func clearCallHistory() {
+    callHistory = []
+    callMockHistory = []
   }
 }

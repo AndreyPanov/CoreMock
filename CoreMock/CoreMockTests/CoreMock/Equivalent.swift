@@ -21,3 +21,8 @@ extension Int: Equivalent {
     return self == (other as? Int)
   }
 }
+
+enum Argument {
+  case value(Equivalent)
+  case values([Equivalent])
+}

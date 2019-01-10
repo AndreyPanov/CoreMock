@@ -7,6 +7,8 @@ class BaseTestCase: XCTestCase {
   var callHistory: [FunctionName]!
   var callMockHistory: [FunctionName]!
   
+  private var callHandlers: [CallHandler] = []
+  
   override open func setUp() {
     super.setUp()
     
@@ -41,4 +43,16 @@ class BaseTestCase: XCTestCase {
     XCTAssertTrue(true)
   }
   //swiftlint:enable identifier_name
+  
+  func clearCallHistory() {
+    callHistory = []
+    callMockHistory = []
+    for handler in callHandlers {
+      handler.clearCallHistory()
+    }
+  }
+  
+  func add(_ callHandler: CallHandler) {
+    callHandlers.append(callHandler)
+  }
 }

@@ -1,6 +1,6 @@
 class Function: Equatable {
   let name: FunctionName
-  var args: [Equivalent]
+  var args: [Argument]
   
   init(name: FunctionName) {
     self.name = name
@@ -9,11 +9,11 @@ class Function: Equatable {
 }
 
 func == (l: Function, r: Function) -> Bool {
-  for (lArgs, rArgs) in zip(l.args, r.args) {
+  /*for (lArgs, rArgs) in zip(l.args, r.args) {
     if !lArgs.isEqualTo(rArgs) {
       return false
     }
-  }
+  }*/
   return l.name == r.name
 }
 
